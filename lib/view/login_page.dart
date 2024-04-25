@@ -19,79 +19,87 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Social Media'),
+        title: const Text(
+          'Log In',
+          style: TextStyle(fontSize: 35),
+        ),
         centerTitle: true,
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(color: Colors.black12),
-            height: double.infinity,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: emailController,
-                      decoration:
-                          const InputDecoration(hintText: 'Enter a Email'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter a valid Email';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: passwordController,
-                      decoration:
-                          const InputDecoration(hintText: 'Enter a password'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter a valid password';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 40),
-                    ElevatedButton(
-                        onPressed: () async {
-                          if (_formkey.currentState!.validate()) {
-                            final status = await AuthService().login(
-                                context,
-                                AuthModel(
-                                    email: emailController.text,
-                                    password: passwordController.text));
-                            if (status == 'success') {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (context) => const Bottomnav(),
-                              ));
-                            } else {
-                              return;
-                            }
+          Padding(
+            padding: const EdgeInsets.all(80.0),
+            child: SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                            hintText: 'Enter a Email',
+                            border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid Email';
+                          } else {
+                            return null;
                           }
                         },
-                        child: const Text('Login')),
-                    const SizedBox(height: 40),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SignupScreen(),
-                        ));
-                      },
-                      child: const Text('Sign up'),
-                    ),
-                  ],
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                            hintText: 'Enter a password',
+                            border: OutlineInputBorder()),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid password';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (_formkey.currentState!.validate()) {
+                              final status = await AuthService().login(
+                                  context,
+                                  AuthModel(
+                                      email: emailController.text,
+                                      password: passwordController.text));
+                              if (status == 'success') {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Bottomnav(),
+                                ));
+                              } else {
+                                return;
+                              }
+                            }
+                          },
+                          child: const Text('Login')),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SignupScreen(),
+                          ));
+                        },
+                        child: const Text('Sign up'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
