@@ -55,7 +55,8 @@ class AuthService {
         pref.setString('Token', token);
         pref.setString('Status', status);
         return status;
-      } else {
+      }
+      else {
         const SnackBar(
           content: Text('User not found'),
           backgroundColor: Colors.red,
